@@ -28,20 +28,20 @@ async def root(key: str, text: str):
     if hash.hexdigest() == "74323a1db24ecc5a514efa9b8409e0f899249d76cbfba51ce252595818d8b2c3":
         text_res = startDialog(text)
         
-        reg = re.search(r'(?=docs/).*?(?=\.pdf)', text_res)
+        # reg = re.search(r'(?=docs/).*?(?=\.pdf)', text_res)
     
-        file_name_formatted = reg[0].replace('docs/', '')
+        text_res = text_res.replace('docs/', '')
         
         return {
             "access": "accept",
             "text_req": text,
             "text_res": text_res,
-            "file_name": file_name_formatted
+            "file_name": "test"
         }
     else:
         return {
             "access": "deny",
             "text_req": "Ага, размечтался",
-            "text_res": "Это неправильный код",
+            "text_res": "Это неправильный ключ",
             "file_name": ":p"
         }

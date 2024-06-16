@@ -1,9 +1,5 @@
 import os
 
-os.environ['LANGCHAIN_TRACING_V2'] = 'true'
-os.environ['LANGCHAIN_ENDPOINT'] = 'https://api.smith.langchain.com'
-os.environ['LANGCHAIN_API_KEY'] = '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'
-
 ####################################################################################################
 
 local_llm = 'llama3'
@@ -100,7 +96,10 @@ from langchain_core.output_parsers import JsonOutputParser,StrOutputParser
 prompt = PromptTemplate(
     template="""<|begin_of_text|><|start_header_id|>systems<|end_header_id|> Вы являетесь помощником при выполнении заданий по поиску ответов на вопросы.
     Используйте приведенные ниже фрагменты из извлеченного контекста, чтобы ответить на вопрос. Если вы не знаете ответа, просто скажите, что вы не знаете.
-    Используйте максимум три предложения и старайтесь, чтобы ответ был кратким. Напишите название файла, а не путь к нему, в котором вы нашли весь материал, и сгенерируй полный ответ на вопрос на Русском языке <|eot_id|><|start_header_id|>user<|end_header_id|>
+    Используйте максимум столько предложений, сколько понадобится, но чтоб было не больше пяти предложений.
+    Сгенерируй полный ответ, собрав информацию со всех источников на вопрос из самого файла на Русском языке.
+    Также сгенерируй название файла, в котором ты брал информацию.
+    Если к тебе вернулись снова, то перефразируй ответ <|eot_id|><|start_header_id|>user<|end_header_id|>
     Вопрос: {question}
     Контекст: {context}
     Вот ответ на ваш запрос: <|eot_id|><|start_header_id|>assistant<|end_header_id|>""",
@@ -158,7 +157,7 @@ answer_grader.invoke({'question': question,'generation':generation})
 
 ####################################################################################################
 
-os.environ['TAVILY_API_KEY'] = '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'
+os.environ['TAVILY_API_KEY'] = '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'
 
 from langchain_community.tools.tavily_search import TavilySearchResults
 web_search_tool = TavilySearchResults(k = 3)
